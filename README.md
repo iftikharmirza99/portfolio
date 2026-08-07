@@ -4,7 +4,7 @@ This is the first production-ready version of Iftikhar Mirza's personal portfoli
 
 ## Files
 - `index.html` — website structure/content
-- `style.css` — responsive premium styling
+- `style.css` — responsive premium  styling
 - `script.js` — navigation, theme switch, scroll animations
 - `images/` — supplied profile/gallery photos
 - `assets/iftikhar-cv.pdf` — supplied CV

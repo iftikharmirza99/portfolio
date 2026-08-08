@@ -77,3 +77,51 @@ if (window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-
 }
 
 document.getElementById("year")?.replaceChildren(String(new Date().getFullYear()));
+
+
+/* Fullscreen Gallery Lightbox */
+(function () {
+  function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const viewer = document.getElementById('lightboxImage');
+    const caption = document.getElementById('lightboxCaption');
+    const close = document.getElementById('lightboxClose');
+    const prev = document.getElementById('lightboxPrev');
+    const next = document.getElementById('lightboxNext');
+    const images = Array.from(document.querySelectorAll('.gallery-item img'));
+    if (!lightbox || !viewer || !images.length) return;
+    let index = 0;
+    function show(i) {
+      index = (i + images.length) % images.length;
+      const source = images[index].getAttribute('src');
+      viewer.src = source;
+      viewer.alt = images[index].alt || 'Gallery image';
+      caption.textContent = images[index].alt || '';
+    }
+    function open(i) {
+      show(i);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+    }
+    function shut() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+    }
+    images.forEach((img, i) => img.addEventListener('click', () => open(i)));
+    close.addEventListener('click', shut);
+    prev.addEventListener('click', () => show(index - 1));
+    next.addEventListener('click', () => show(index + 1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) shut(); });
+    viewer.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') shut();
+      else if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLightbox);
+  else initLightbox();
+})();

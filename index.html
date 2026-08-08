@@ -7,6 +7,12 @@
   <meta name="keywords" content="Iftikhar Mirza, Accounts, Finance, Import Export, Banking Documentation, Excel, Karachi" />
   <meta name="author" content="Iftikhar Mirza" />
   <meta name="theme-color" content="#081426" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:site_name" content="Iftikhar Mirza Portfolio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Iftikhar Mirza | Accounts & Import/Export Professional" />
+  <meta name="twitter:description" content="Professional portfolio of Iftikhar Mirza." />
+  <meta name="twitter:image" content="blue-suit.jpg" />
   <meta property="og:title" content="Iftikhar Mirza | Accounts & Import/Export Professional" />
   <meta property="og:description" content="Professional portfolio of Iftikhar Mirza." />
   <meta property="og:type" content="website" />
@@ -50,6 +56,7 @@
           <div class="eyebrow"><span></span> Accounts • Finance • Import & Export</div>
           <h1>Iftikhar <em>Mirza</em></h1>
           <p class="hero-title">Accounts & Import/Export Professional</p>
+          <p class="typing-line"><span id="typingText"></span><span class="typing-caret">|</span></p>
           <p class="hero-description">
             Helping businesses stay organized with accounting, banking documentation,
             trade paperwork, reporting and practical Microsoft Office solutions.
@@ -64,6 +71,11 @@
             <div><strong>8+</strong><span>Years at Munir Textile Mills</span></div>
             <div><strong>13+</strong><span>Years Combined Work Experience</span></div>
             <div><strong>Karachi</strong><span>Pakistan</span></div>
+          </div>
+          <div class="mini-stats reveal">
+            <div class="mini-stat"><strong data-count="8" data-suffix="+">0</strong><span>Years at Munir Textile Mills</span></div>
+            <div class="mini-stat"><strong data-count="13" data-suffix="+">0</strong><span>Combined work experience</span></div>
+            <div class="mini-stat"><strong data-count="6" data-suffix="">0</strong><span>Core skill areas</span></div>
           </div>
         </div>
 
@@ -145,12 +157,12 @@
         </div>
 
         <div class="skill-grid">
-          <article class="skill-card reveal"><div class="icon">01</div><h3>Microsoft Office</h3><p>Practical MS Office work for business records, reporting and documentation.</p></article>
-          <article class="skill-card reveal"><div class="icon">02</div><h3>Data Entry</h3><p>Accurate data handling, editing and organized business information.</p></article>
-          <article class="skill-card reveal"><div class="icon">03</div><h3>Accounting</h3><p>Professional accounting experience in a textile business environment.</p></article>
-          <article class="skill-card reveal"><div class="icon">04</div><h3>Documentation</h3><p>Preparation and review of business and compliance-related documents.</p></article>
-          <article class="skill-card reveal"><div class="icon">05</div><h3>Graphics & Editing</h3><p>Adobe and editing skills for practical office and business requirements.</p></article>
-          <article class="skill-card reveal"><div class="icon">06</div><h3>IT Troubleshooting</h3><p>Hardware, software and operating-system troubleshooting experience.</p></article>
+          <article class="skill-card reveal"><div class="icon">01</div><h3>Microsoft Office</h3><p>Practical MS Office work for business records, reporting and documentation.</p><div class="skill-meter"><span style="--level:92%"></span></div><small>Advanced practical use</small></article>
+          <article class="skill-card reveal"><div class="icon">02</div><h3>Data Entry</h3><p>Accurate data handling, editing and organized business information.</p><div class="skill-meter"><span style="--level:90%"></span></div><small>High accuracy workflow</small></article>
+          <article class="skill-card reveal"><div class="icon">03</div><h3>Accounting</h3><p>Professional accounting experience in a textile business environment.</p><div class="skill-meter"><span style="--level:88%"></span></div><small>Professional experience</small></article>
+          <article class="skill-card reveal"><div class="icon">04</div><h3>Documentation</h3><p>Preparation and review of business and compliance-related documents.</p><div class="skill-meter"><span style="--level:91%"></span></div><small>Trade & business documents</small></article>
+          <article class="skill-card reveal"><div class="icon">05</div><h3>Graphics & Editing</h3><p>Adobe and editing skills for practical office and business requirements.</p><div class="skill-meter"><span style="--level:78%"></span></div><small>Practical creative work</small></article>
+          <article class="skill-card reveal"><div class="icon">06</div><h3>IT Troubleshooting</h3><p>Hardware, software and operating-system troubleshooting experience.</p><div class="skill-meter"><span style="--level:82%"></span></div><small>Practical troubleshooting</small></article>
         </div>
       </div>
     </section>
@@ -206,15 +218,27 @@
         <div class="contact-card reveal">
           <div class="contact-card-top"><span>IM</span><small>IFTIKHAR MIRZA</small></div>
           <h3>Ready to start a conversation?</h3>
-          <p>Send an email or message me on WhatsApp.</p>
-          <div class="contact-buttons">
-            <a class="btn btn-primary full" href="mailto:iftikhar.mirza099@gmail.com">Email Me</a>
+          <p>Send a quick message from the website.</p>
+          <form class="contact-form" id="contactForm">
+            <label>Name<input type="text" id="contactName" required placeholder="Your name"></label>
+            <label>Email<input type="email" id="contactEmail" required placeholder="your@email.com"></label>
+            <label>Message<textarea id="contactMessage" rows="4" required placeholder="How can I help?"></textarea></label>
+            <button class="btn btn-primary full" type="submit">Send Message <span>↗</span></button>
+          </form>
+          <div class="contact-buttons compact-buttons">
             <a class="btn btn-outline full" href="https://wa.me/923149870302" target="_blank" rel="noopener">WhatsApp Me</a>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+
+  <a class="floating-whatsapp" href="https://wa.me/923149870302" target="_blank" rel="noopener" aria-label="Chat with Iftikhar Mirza on WhatsApp">
+    <span>✆</span><b>WhatsApp</b>
+  </a>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -227,7 +251,18 @@
       <p>© <span id="year"></span> Iftikhar Mirza. All rights reserved.</p>
     </div>
   </footer>
-\n  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Full screen image viewer">\n    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">×</button>\n    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous image">‹</button>\n    <div class="lightbox-content">\n      <img id="lightboxImage" src="" alt="" />\n      <div class="lightbox-caption" id="lightboxCaption"></div>\n    </div>\n    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Next image">›</button>\n  </div>\n
+
   <script src="script.js"></script>
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Full screen image viewer">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous image">‹</button>
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Next image">›</button>
+  </div>
+
 </body>
 </html>

@@ -248,3 +248,43 @@ body{overflow-x:hidden}
 .lightbox-prev:hover{transform:translateY(-50%) translateX(-3px)}.lightbox-next:hover{transform:translateY(-50%) translateX(3px)}
 body.lightbox-open{overflow:hidden}
 @media(max-width:700px){.lightbox{padding:18px}.lightbox-content{max-width:94vw;max-height:86vh}.lightbox-content img{max-height:72vh}.lightbox-nav{width:42px;height:58px;font-size:38px}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-close{top:10px;right:10px;width:42px;height:42px;font-size:28px}}
+
+
+/* Premium upgrade */
+.typing-line{min-height:28px;color:var(--gold2);font-weight:700;letter-spacing:.04em}
+.typing-caret{animation:blink .75s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.mini-stat{padding:14px 15px;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:16px;backdrop-filter:blur(8px)}
+.mini-stat strong{display:block;font-size:24px;color:var(--gold2);line-height:1.1}
+.mini-stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.skill-meter{height:5px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;margin:18px 0 7px}
+.skill-meter span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.skill-card.show .skill-meter span{width:var(--level)}
+.skill-card small{color:var(--muted);font-size:11px}
+.contact-form{display:grid;gap:12px;margin-top:18px}
+.contact-form label{display:grid;gap:6px;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.contact-form input,.contact-form textarea{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--white);border-radius:12px;padding:12px 13px;outline:none;resize:vertical}
+body.light .contact-form input,body.light .contact-form textarea{background:rgba(8,20,38,.04)}
+.contact-form input:focus,.contact-form textarea:focus{border-color:rgba(215,179,106,.7);box-shadow:0 0 0 3px rgba(215,179,106,.1)}
+.compact-buttons{margin-top:10px}
+.floating-whatsapp{position:fixed;right:22px;bottom:22px;z-index:990;display:flex;align-items:center;gap:9px;padding:12px 16px;border:1px solid rgba(215,179,106,.45);border-radius:999px;background:rgba(8,20,38,.82);color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.25);backdrop-filter:blur(12px);transition:.3s}
+.floating-whatsapp span{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#081426;font-size:18px;font-weight:800}
+.floating-whatsapp:hover{transform:translateY(-5px);box-shadow:0 18px 42px rgba(0,0,0,.32)}
+.floating-whatsapp b{font-size:12px}
+.back-to-top{position:fixed;right:22px;bottom:82px;z-index:989;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(8,20,38,.72);color:var(--white);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:.3s;backdrop-filter:blur(10px)}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{border-color:var(--gold);color:var(--gold2)}
+.toast{position:fixed;left:50%;bottom:26px;z-index:10001;transform:translate(-50%,20px);padding:12px 18px;border:1px solid rgba(215,179,106,.4);border-radius:999px;background:rgba(8,20,38,.92);color:#fff;font-size:13px;opacity:0;visibility:hidden;transition:.3s;backdrop-filter:blur(10px)}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.lightbox-counter{color:rgba(255,255,255,.72);font-size:11px;letter-spacing:.12em}
+@media(max-width:700px){
+  .mini-stats{grid-template-columns:1fr}
+  .floating-whatsapp{right:14px;bottom:14px;padding:9px 12px}
+  .floating-whatsapp b{display:none}
+  .back-to-top{right:14px;bottom:68px}
+}
+
+
+.cursor-spotlight{position:fixed;left:0;top:0;width:240px;height:240px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(215,179,106,.08),transparent 68%);mix-blend-mode:screen;transition:transform .08s linear}
+@media(prefers-reduced-motion:reduce){.cursor-spotlight{display:none}}

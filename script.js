@@ -78,50 +78,95 @@ if (window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-
 
 document.getElementById("year")?.replaceChildren(String(new Date().getFullYear()));
 
-
 /* Fullscreen Gallery Lightbox */
-(function () {
-  function initLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    const viewer = document.getElementById('lightboxImage');
-    const caption = document.getElementById('lightboxCaption');
-    const close = document.getElementById('lightboxClose');
-    const prev = document.getElementById('lightboxPrev');
-    const next = document.getElementById('lightboxNext');
-    const images = Array.from(document.querySelectorAll('.gallery-item img'));
-    if (!lightbox || !viewer || !images.length) return;
-    let index = 0;
-    function show(i) {
-      index = (i + images.length) % images.length;
-      const source = images[index].getAttribute('src');
-      viewer.src = source;
-      viewer.alt = images[index].alt || 'Gallery image';
-      caption.textContent = images[index].alt || '';
-    }
-    function open(i) {
-      show(i);
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('lightbox-open');
-    }
-    function shut() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('lightbox-open');
-    }
-    images.forEach((img, i) => img.addEventListener('click', () => open(i)));
-    close.addEventListener('click', shut);
-    prev.addEventListener('click', () => show(index - 1));
-    next.addEventListener('click', () => show(index + 1));
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) shut(); });
-    viewer.addEventListener('click', e => e.stopPropagation());
-    document.addEventListener('keydown', e => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') shut();
-      else if (e.key === 'ArrowLeft') show(index - 1);
-      else if (e.key === 'ArrowRight') show(index + 1);
-    });
+(()=>{const l=document.getElementById("lightbox"),im=document.getElementById("lightboxImage"),cap=document.getElementById("lightboxCaption"),c=document.getElementById("lightboxClose"),p=document.getElementById("lightboxPrev"),n=document.getElementById("lightboxNext"),imgs=[...document.querySelectorAll(".gallery-item img")];if(!l||!im||!imgs.length)return;let i=0;const show=x=>{i=(x+imgs.length)%imgs.length;const a=imgs[i];im.src=a.currentSrc||a.src;im.alt=a.alt||"Gallery image";cap.textContent=a.alt||""};const open=x=>{show(x);l.classList.add("open");l.setAttribute("aria-hidden","false");document.body.classList.add("lightbox-open");c?.focus()};const close=()=>{l.classList.remove("open");l.setAttribute("aria-hidden","true");document.body.classList.remove("lightbox-open")};imgs.forEach((a,x)=>a.addEventListener("click",()=>open(x)));c?.addEventListener("click",close);p?.addEventListener("click",()=>show(i-1));n?.addEventListener("click",()=>show(i+1));l.addEventListener("click",e=>{if(e.target===l)close()});document.addEventListener("keydown",e=>{if(!l.classList.contains("open"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")show(i-1);if(e.key==="ArrowRight")show(i+1)})})();
+
+
+/* Premium portfolio upgrades */
+const typingEl = document.getElementById("typingText");
+if (typingEl) {
+  const phrases = ["Excel & Reporting", "Banking Documentation", "Import & Export Support", "Accounts & Office Solutions"];
+  let phrase = 0, char = 0, deleting = false;
+  const typeLoop = () => {
+    const text = phrases[phrase];
+    typingEl.textContent = deleting ? text.slice(0, --char) : text.slice(0, ++char);
+    let delay = deleting ? 45 : 78;
+    if (!deleting && char === text.length) { deleting = true; delay = 1500; }
+    else if (deleting && char === 0) { deleting = false; phrase = (phrase + 1) % phrases.length; delay = 350; }
+    setTimeout(typeLoop, delay);
+  };
+  setTimeout(typeLoop, 600);
+}
+
+/* Animated counters */
+const counterObserver = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = Number(el.dataset.count || 0);
+    const suffix = el.dataset.suffix || "";
+    const start = performance.now();
+    const duration = 1200;
+    const tick = now => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    obs.unobserve(el);
+  });
+}, {threshold:.5});
+document.querySelectorAll("[data-count]").forEach(el => counterObserver.observe(el));
+
+/* Back to top */
+const backTop = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  backTop?.classList.toggle("show", window.scrollY > 500);
+}, {passive:true});
+backTop?.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+/* Contact form: opens the visitor's email client with a prepared message */
+const contactForm = document.getElementById("contactForm");
+contactForm?.addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("contactName")?.value.trim();
+  const email = document.getElementById("contactEmail")?.value.trim();
+  const message = document.getElementById("contactMessage")?.value.trim();
+  if (!name || !email || !message) return;
+  const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+  window.location.href = `mailto:iftikhar.mirza099@gmail.com?subject=${subject}&body=${body}`;
+  const toast = document.getElementById("toast");
+  if (toast) {
+    toast.textContent = "Opening your email app…";
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2600);
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLightbox);
-  else initLightbox();
-})();
+});
+
+/* Lightbox counter enhancement */
+const lightboxCounter = document.getElementById("lightboxCounter");
+const originalLightbox = document.getElementById("lightbox");
+if (originalLightbox && lightboxCounter) {
+  const updateCounter = () => {
+    const total = document.querySelectorAll(".gallery-item img").length;
+    const imageSrc = document.getElementById("lightboxImage")?.src || "";
+    const images = [...document.querySelectorAll(".gallery-item img")];
+    const idx = images.findIndex(img => (img.currentSrc || img.src) === imageSrc);
+    lightboxCounter.textContent = idx >= 0 ? `${idx + 1} / ${total}` : "";
+  };
+  new MutationObserver(updateCounter).observe(originalLightbox, {attributes:true, subtree:true, childList:true});
+  originalLightbox.addEventListener("click", () => setTimeout(updateCounter, 20));
+  document.addEventListener("keydown", () => setTimeout(updateCounter, 20));
+}
+
+/* Gentle cursor spotlight on desktop */
+if (window.matchMedia("(pointer:fine)").matches) {
+  const spotlight = document.createElement("div");
+  spotlight.className = "cursor-spotlight";
+  document.body.appendChild(spotlight);
+  window.addEventListener("pointermove", e => {
+    spotlight.style.transform = `translate3d(${e.clientX - 120}px,${e.clientY - 120}px,0)`;
+  }, {passive:true});
+}

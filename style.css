@@ -140,3 +140,93 @@ h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--gold2)}
   .floating-card{bottom:25px;left:8px}.scroll-hint{display:none}
   .timeline:before{left:13px}.timeline-item{grid-template-columns:28px 1fr;gap:12px}.timeline-year{grid-column:2;text-align:left;padding-top:0;order:1}.timeline-dot{grid-column:1;grid-row:2;margin-top:24px}.timeline-card{grid-column:2;grid-row:2}
 }
+
+/* ===== Premium animation pack ===== */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+
+/* Soft animated background */
+.hero-bg{animation:heroDrift 14s ease-in-out infinite alternate;will-change:transform}
+@keyframes heroDrift{0%{transform:scale(1) translate3d(0,0,0)}100%{transform:scale(1.06) translate3d(0,-12px,0)}}
+
+/* Page entrance */
+.site-header{animation:headerDrop .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes headerDrop{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+.hero-copy.reveal{transition-delay:.08s}
+.hero-photo-wrap.reveal{transition-delay:.22s}
+
+/* Hero photo */
+.photo-frame{animation:photoFloat 6s ease-in-out infinite;will-change:transform}
+@keyframes photoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(.35deg)}}
+.photo-glow{animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:.9;transform:scale(1.03)}}
+.floating-card{animation:cardFloat 5s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* Buttons */
+.btn{position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,background .3s ease}
+.btn::after{content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transition:transform .65s ease}
+.btn:hover::after{transform:translateX(120%)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.2)}
+.btn:active{transform:translateY(0) scale(.98)}
+
+/* Navigation */
+.nav-links a{position:relative;transition:color .25s ease,transform .25s ease}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--gold2);transform:scaleX(0);transform-origin:center;transition:transform .25s ease}
+.nav-links a:hover{transform:translateY(-2px)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.theme-toggle{transition:transform .4s ease}
+.theme-toggle:hover{transform:rotate(25deg) scale(1.08)}
+
+/* Cards */
+.skill-card,.service-card,.timeline-card,.contact-card{transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .4s ease,box-shadow .4s ease,background .4s ease}
+.skill-card:hover,.service-card:hover,.timeline-card:hover{transform:translateY(-8px)}
+.skill-card:hover,.service-card:hover{box-shadow:0 18px 45px rgba(0,0,0,.18)}
+.service-card>span{display:inline-block;transition:transform .4s ease}
+.service-card:hover>span{transform:translateY(-4px) rotate(-5deg) scale(1.12)}
+
+/* Section headings */
+.section-heading h2 span,.contact-copy h2 span{background:linear-gradient(90deg,var(--gold2),#fff,var(--gold2));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shineText 5s linear infinite}
+@keyframes shineText{to{background-position:220% center}}
+
+/* Hero statistics */
+.hero-meta div{transition:transform .35s ease}
+.hero-meta div:hover{transform:translateY(-5px)}
+.hero-meta strong{display:inline-block;transition:transform .35s ease}
+.hero-meta div:hover strong{transform:scale(1.06)}
+
+/* Gallery */
+.gallery-item{position:relative;isolation:isolate;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,border-color .45s ease}
+.gallery-item::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(215,179,106,.16),transparent 45%,rgba(255,255,255,.08));opacity:0;transition:opacity .45s ease;pointer-events:none}
+.gallery-item img{transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .7s ease}
+.gallery-item:hover{transform:translateY(-7px);box-shadow:0 20px 45px rgba(0,0,0,.28);border-color:rgba(215,179,106,.45)}
+.gallery-item:hover::after{opacity:1}
+.gallery-item:hover img{transform:scale(1.08);filter:saturate(1.08) contrast(1.03)}
+
+/* Scroll reveal variations */
+.reveal{transition-property:opacity,transform;transition-duration:.85s;transition-timing-function:cubic-bezier(.2,.8,.2,1)}
+.reveal:nth-child(2){transition-delay:.08s}.reveal:nth-child(3){transition-delay:.16s}.reveal:nth-child(4){transition-delay:.24s}.reveal:nth-child(5){transition-delay:.32s}.reveal:nth-child(6){transition-delay:.40s}
+
+/* Timeline line animation */
+.timeline:before{transform-origin:top;animation:lineGrow 1.5s ease-out both}
+@keyframes lineGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.timeline-dot{transition:transform .35s ease,box-shadow .35s ease}
+.timeline-item:hover .timeline-dot{transform:scale(1.35);box-shadow:0 0 0 9px rgba(215,179,106,.12),0 0 20px rgba(215,179,106,.28)}
+
+/* Scroll progress glow */
+.scroll-progress{box-shadow:0 0 10px rgba(215,179,106,.45)}
+
+/* Mobile menu animation */
+@media(max-width:900px){
+  .nav-links{opacity:0;transform:translateY(-8px);transition:opacity .25s ease,transform .25s ease;pointer-events:none}
+  .nav-links.open{opacity:1;transform:none;pointer-events:auto}
+  .nav-links a{animation:menuItem .35s ease both}
+  .nav-links.open a:nth-child(1){animation-delay:.03s}.nav-links.open a:nth-child(2){animation-delay:.06s}.nav-links.open a:nth-child(3){animation-delay:.09s}.nav-links.open a:nth-child(4){animation-delay:.12s}.nav-links.open a:nth-child(5){animation-delay:.15s}.nav-links.open a:nth-child(6){animation-delay:.18s}
+  @keyframes menuItem{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

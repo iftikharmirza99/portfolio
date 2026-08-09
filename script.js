@@ -78,9 +78,22 @@ if (window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-
 
 document.getElementById("year")?.replaceChildren(String(new Date().getFullYear()));
 
-/* Fullscreen Gallery Lightbox */
-(()=>{const l=document.getElementById("lightbox"),im=document.getElementById("lightboxImage"),cap=document.getElementById("lightboxCaption"),c=document.getElementById("lightboxClose"),p=document.getElementById("lightboxPrev"),n=document.getElementById("lightboxNext"),imgs=[...document.querySelectorAll(".gallery-item img")];if(!l||!im||!imgs.length)return;let i=0;const show=x=>{i=(x+imgs.length)%imgs.length;const a=imgs[i];im.src=a.currentSrc||a.src;im.alt=a.alt||"Gallery image";cap.textContent=a.alt||""};const open=x=>{show(x);l.classList.add("open");l.setAttribute("aria-hidden","false");document.body.classList.add("lightbox-open");c?.focus()};const close=()=>{l.classList.remove("open");l.setAttribute("aria-hidden","true");document.body.classList.remove("lightbox-open")};imgs.forEach((a,x)=>a.addEventListener("click",()=>open(x)));c?.addEventListener("click",close);p?.addEventListener("click",()=>show(i-1));n?.addEventListener("click",()=>show(i+1));l.addEventListener("click",e=>{if(e.target===l)close()});document.addEventListener("keydown",e=>{if(!l.classList.contains("open"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")show(i-1);if(e.key==="ArrowRight")show(i+1)})})();
-
+/* Fullscreen Gallery Lightbox - robust and DOM-safe */
+document.addEventListener("DOMContentLoaded", () => {
+  const l=document.getElementById("lightbox"), im=document.getElementById("lightboxImage");
+  if(!l||!im) return;
+  const cap=document.getElementById("lightboxCaption"), cnt=document.getElementById("lightboxCounter");
+  const closeBtn=document.getElementById("lightboxClose"), prevBtn=document.getElementById("lightboxPrev"), nextBtn=document.getElementById("lightboxNext");
+  let i=0;
+  const imgs=()=>[...document.querySelectorAll(".gallery-item img")];
+  const show=(n)=>{const a=imgs();if(!a.length)return;i=(n+a.length)%a.length;const x=a[i];im.src=x.currentSrc||x.src;im.alt=x.alt||"Gallery image";if(cap)cap.textContent=x.alt||"";if(cnt)cnt.textContent=`${i+1} / ${a.length}`;};
+  const open=(n)=>{show(n);l.classList.add("open");l.setAttribute("aria-hidden","false");document.body.classList.add("lightbox-open");};
+  const shut=()=>{l.classList.remove("open");l.setAttribute("aria-hidden","true");document.body.classList.remove("lightbox-open");};
+  document.addEventListener("click",e=>{const img=e.target.closest(".gallery-item img");if(img){e.preventDefault();e.stopPropagation();const a=imgs();open(a.indexOf(img));}},true);
+  closeBtn?.addEventListener("click",shut);prevBtn?.addEventListener("click",()=>show(i-1));nextBtn?.addEventListener("click",()=>show(i+1));
+  l.addEventListener("click",e=>{if(e.target===l)shut();});
+  document.addEventListener("keydown",e=>{if(!l.classList.contains("open"))return;if(e.key==="Escape")shut();else if(e.key==="ArrowLeft")show(i-1);else if(e.key==="ArrowRight")show(i+1);});
+});
 
 /* Premium portfolio upgrades */
 const typingEl = document.getElementById("typingText");
